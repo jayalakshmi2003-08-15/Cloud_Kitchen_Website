@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Login</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f3f4f6;
+            font-family: Arial, sans-serif;
+        }
+        .login-container {
+            width: 350px;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            text-align: center;
+        }
+        .login-container h2 {
+            margin-bottom: 20px;
+        }
+        .input-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .login-btn {
+            width: 100%;
+            padding: 10px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .login-btn:hover {
+            background: #0056b3;
+        }
+        .links {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+        .links a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .success-message {
+            display: none;
+            color: green;
+            margin-top: 10px;
+        }
+    </style>
+    <script>
+        function loginUser() {
+            let email = document.getElementById("email").value;
+            let password = document.getElementById("password").value;
+            
+            if (email === "" || password === "") {
+                alert("Please enter email and password.");
+                return;
+            }
+            
+            document.getElementById("success-message").style.display = "block";
+            
+            let today = new Date().toISOString().split('T')[0]; // Get current date in YYYY-MM-DD format
+            let menuData = JSON.parse(localStorage.getItem("menuData")) || {};
+            
+            if (menuData[today]) {
+                window.location.href = `menu-view.html?date=${today}`;
+            } else {
+                alert("No menu available for today.");
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="login-container">
+        <h2>User Login</h2>
+        <div class="input-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="Enter email">
+        </div>
+        <div class="input-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="Enter password">
+        </div>
+        <button class="login-btn" onclick="loginUser()">Login</button>
+        <p id="success-message" class="success-message">Login successful!</p>
+        <div class="links">
+            <a href="#">Forgot Password?</a>
+            <a href="#">Create New Account</a>
+        </div>
+    </div>
+</body>
+</html>
